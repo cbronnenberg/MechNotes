@@ -1,0 +1,758 @@
+%==============================================================================
+%                                *************                                 
+%                                *  PREAMBLE *                                 
+%                                *************                                 
+%==============================================================================
+
+
+\documentclass[11pt,letterpaper,titlepage,draft]{article}
+%
+% Activate the next two lines to run syntax-only checks (no dvi)
+%
+%...\usepackage{syntonly}
+%...\syntaxonly
+
+\usepackage[utf8]{inputenc}
+%\usepackage{ieeetr}
+%\usepackage[round]{natbib}
+
+\usepackage{textcomp}
+
+% AMS packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%
+%   Title page info
+%
+\author{Chris Bronnenberg}
+\title{Invitation to Plate Theories - review of J.N. Reddy's works}
+%
+%  Index
+%
+\usepackage{makeidx}
+\usepackage{hyperref}
+\makeindex
+
+%
+% Table of Contents
+%
+\setcounter{tocdepth}{4}
+
+%==============================================================================
+%                            *********************
+%                            *  CUSTOM EQUATIONS *                                    
+%                            *********************
+%    * newcommand's go here
+%
+%==============================================================================
+
+\newcommand{\nvector}[2]{#1_1, #1_2,\ldots #1_#2}
+\newcommand{\diff}{\textbf d}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\expect}[1]{\langle#1\rangle}
+\newcommand{\PDer}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\PPDer}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\PPDerMix}[3]{\frac{\partial^2 #1}{\partial #2\; \partial #3}}
+\newcommand{\PPPDerMixABC}[4]{\frac{\partial^3 #1}{\partial #2\; \partial #3\; \partial #4}}
+\newcommand{\PPPDerMixAAB}[4]{\frac{\partial^3 #1}{\partial #2\; \partial #3\; \partial #4}}
+\newcommand{\PPPPDerMixAABB}[3]{\frac{\partial^4 #1}{\partial #2^2\; \partial #3^2}}
+\newcommand{\Vartn}[1]{\delta #1}
+%\newcommand{\vec}[1]{\rightarrow{#1}}
+%
+% Solid Mechanics - Strain & Compatability Eq
+%
+\newcommand{\MilesEq}{3\times\sqrt{\frac{\pi}{2}\frac{G_{in} W_{in} Q}{f_n^2}}}
+\newcommand{\StrainX}{\frac{\partial u}{\partial x}}
+\newcommand{\StrainY}{\frac{\partial v}{\partial y}}
+\newcommand{\StrainZ}{\frac{\partial w}{\partial z}}
+\newcommand{\ShearXY}{
+	\frac{1}{2}\left(\frac{\partial u}{\partial y} +  
+	\frac{\partial v}
+	{\partial x} \right) 
+}
+
+%
+% Solid Mechanics - Strain Energy
+%
+\newcommand{\StrainEnergyBending}{
+U_M (L)= \int_0^L \frac{M(x)^2}{2 E I(x)}\; \diff x
+}
+%
+
+%
+% Electricity
+%
+\newcommand{\KirchoffCurrentLaw}{
+		\sum_{k=1}^{n} I_k = 0 \;
+}
+\numberwithin{equation}{subsection}
+%==============================================================================
+%                              ****************** 
+%                              * BEGIN DOCUMENT *                              
+%                              ******************
+%==============================================================================
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+%\fussy
+
+\section{The Method of Virtual Displacements}
+\subsection{The Ritz Solution}
+In the Ritz solution, an assumed solution, $u$ is substituted directly into the variational
+equations.
+\begin{equation}
+    u(x,t) = \sum_{j=1}^N c_j\varphi_j + \varphi_0
+\end{equation}
+
+%
+\section{Classical Laminated Plate Theory}
+\subsection{Displacements and Strains}
+Classical Laminated Plate Theory (CLPT) begins with the Kirchoff assumptions~\cite{reddy_2004}.
+
+%======================================================================
+%======================================================================
+\begin{eqnarray}\label{E:S1001:SS101:1}
+u(x,y,z) = u_0(x,y,z) - z \PDer{w}{x},\notag \\ 
+v(x,y,z) = v_0(x,y,z) - z \PDer{w}{y}, \\
+w(x,y,z) = w_0(x,y)\notag
+\end{eqnarray}
+
+Equation~\ref{E:S1001:SS101:1} has the Kirchoff assumptions embedded therein.
+%======================================================================
+%======================================================================
+Next define the \emph{Green-Lagrange} strain tensor in component form:
+    \begin{eqnarray}\label{E:S1001:SS101:2}
+    E_{xx} = \PDer{u}{x} + \frac{1}{2}\left[ \left(\PDer{u}{x}\right)^2 + 
+    \left(\PDer{v}{x}\right)^2 + \left(\PDer{w}{x}\right)^2 \right]
+\\
+    E_{yy} = \PDer{v}{y} + \frac{1}{2}\left[ \left(\PDer{u}{y}\right)^2 + 
+    \left(\PDer{v}{y}\right)^2 + \left(\PDer{w}{y}\right)^2 \right]
+\\
+    E_{zz} = \PDer{w}{z} + \frac{1}{2}\left[ \left(\PDer{u}{z} \right)^2 + 
+    \left(\PDer{v}{z}\right)^2 + \left(\PDer{w}{z}\right)^2 \right]
+\\
+    E_{xy} = \frac{1}{2}\left[ \PDer{u}{y} + \PDer{v}{x} + \PDer{u}{x} \PDer{u}{y}
+    + \PDer{v}{x} \PDer{v}{y} + \PDer{w}{x} \PDer{w}{y} \right]
+\\
+    E_{xz} = \frac{1}{2}\left[ \PDer{u}{z} + \PDer{w}{x} + \PDer{u}{x} \PDer{u}{z}
+    + \PDer{v}{x} \PDer{v}{z} + \PDer{w}{l} \PDer{w}{z} \right]
+\\
+    E_{yz} = \frac{1}{2}\left[ \PDer{v}{z} + \PDer{w}{y} + \PDer{u}{y} \PDer{u}{z}
+    + \PDer{v}{y} \PDer{v}{z} + \PDer{w}{y} \PDer{w}{z} \right]
+\end{eqnarray}
+%======================================================================
+%======================================================================
+The following displacement gradients are of order $\epsilon$:
+\begin{equation}\label{E:S1001:SS101:3}
+\PDer{u}{x},\quad \PDer{u}{y}, \quad \PDer{v}{x}, \quad \PDer{v}{y}, \quad \PDer{w}{z} = O(\epsilon)
+\end{equation}
+implying that products of these terms and squares of these terms are of order $\epsilon^2$, 
+and thus negligible for small-strain theory.
+\\
+The terms $\PDer{w_0}{x}$ and $\PDer{w_0}{y}$ are rotations and introduce 
+geometric nonlinearity; they should be retained for CLPT.
+Therefore, the small-strain with moderate rotations (geometric nonlinearity), 
+the stain-displacement equations become (after substituting from \ref{E:S1001:SS101:1}):
+
+%======================================================================
+%======================================================================
+\begin{gather}\label{E:S1001:SS101:4}
+\varepsilon_{xx} = \PDer{u_0}{x} + \frac{1}{2}\left(\PDer{w_0}{x}\right)^2 - z \PPDer{w_0}{x},
+\\
+\varepsilon_{yy} = \PDer{v_0}{y} + \frac{1}{2}\left(\PDer{w_0}{y}\right)^2 - z \PPDer{w_0}{y}
+\\
+\varepsilon_{xy} = \frac{1}{2}\left( \PDer{u_0}{y} + \PDer{v_0}{x} + \PDer{w_0}{x}\PDer{w_0}{y} \right) - z\PPDerMix{w_0}{x}{y}
+\\
+\varepsilon_{xz} = \frac{1}{2}\left( -\PDer{w_0}{x} + \PDer{w_0}{x} \right) = 0
+\\
+\varepsilon_{yz} = \frac{1}{2}\left( -\PDer{w_0}{y} + \PDer{w_0}{y} \right)  = 0
+\end{gather}
+%======================================================================
+%======================================================================
+\begin{equation}\label{E:S1001:SS101:5}
+    \begin{Bmatrix}
+    \varepsilon_{xx} \\[3pt]
+    \varepsilon_{yy} \\[3pt]
+    \gamma_{xy}
+    \end{Bmatrix}
+    = 
+    \begin{Bmatrix}
+    \varepsilon_{xx}^{(0)} \\[3pt]
+    \varepsilon_{yy}^{(0)} \\[3pt]
+    \gamma_{xy}^{(0)}
+    \end{Bmatrix}
+    + z
+    \begin{Bmatrix}
+    \varepsilon_{xx}^{(1)} \\[3pt]
+    \varepsilon_{yy}^{(1)} \\[3pt]
+    \gamma_{xy}^{(1)}
+    \end{Bmatrix}
+\end{equation}
+%======================================================================
+%======================================================================
+\begin{equation}\label{E:S1001:SS101:6}
+    {\varepsilon^0}
+    =
+    \begin{Bmatrix}
+    \PDer{u_0}{x} + \frac{1}{2}\left(\PDer{w_0}{x}\right)^2\\[3pt]
+    \PDer{v_0}{x} + \frac{1}{2}\left(\PDer{w_0}{y}\right)^2\\[3pt]
+    \PDer{u_0}{y} + \PDer{v_0}{x} + \PDer{w_0}{x}\PDer{w_0}{y}
+    \end{Bmatrix}, \qquad
+    {\varepsilon^1}
+    =
+    \begin{Bmatrix}
+    -\PPDer{w_0}{x}\\[3pt]
+    -\PPDer{w_0}{y}\\[3pt]
+    -2\PPDerMix{w_0}{x}{y}
+    \end{Bmatrix} 
+\end{equation}
+%======================================================================
+%======================================================================
+
+\subsection{Equations of Motion}
+We setup the equations of motion starting with the principle of virtual work:
+\begin{equation}\label{E:S1001:SS102:1}
+0 = \int_0^T\left(\delta U + \delta V - \delta K \right) \diff{t}
+\end{equation}
+
+%======================================================================
+%======================================================================
+The virtual strain energy is given by:
+
+\begin{align}\label{E:S1001:SS102:2}
+\delta U=\int_{\Omega_0} \int_{-\frac{h}{2}}^{\frac{h}{2}} \left( \sigma_{xx} \delta \varepsilon_{xx}  + \sigma_{yy} \delta \varepsilon_{yy}  + 2\sigma_{xy} \delta \varepsilon_{xy} \right) \diff{z} \diff{x} \diff{y}
+\end{align}
+
+\begin{align}\label{E:S1001:SS102:3}
+\delta U=\int_{\Omega_0} \left\{ \int_{-\frac{h}{2}}^{\frac{h}{2}} \left[ \sigma_{xx} \left( \delta\varepsilon_{xx}^{(0)} + z \delta \varepsilon_{xx}^{(1)} \right) + \sigma_{yy} \left( \delta\varepsilon_{yy}^{(0)} + z \delta \varepsilon_{yy}^{(1)} \right)\nonumber\right.\right.\nonumber\\ 
+    \left.\left.+\sigma_{xy} \left( \delta\gamma_{xy}^{(0)} + z \delta \gamma_{xy}^{(1)} \right) \right] \diff{z} \right\} \diff{x} \diff{y} 
+\end{align}
+
+%======================================================================
+%======================================================================
+Where we note that the shear strain is half the extensional strain.
+\\
+External work is performed by top pressure $q_t$ and bottom pressure $q_b$, applied over the whole domain, $\Omega_0$ (plate). 
+There may be additional work performed by surface tractions $\sigma_{nn}$, $\sigma_{ns}$ and $\sigma_{nz}$ over the 
+boundary $\Gamma_{\sigma}$.  These external loads do work on the body and are defined as negative, as opposed to the 
+strain energy (positive).
+
+\begin{multline}\label{E:S1001:SS102:4}
+    \delta V = -\int_{\Omega_0} \left[ q_b(x,y) \delta w(x,y,\frac{h}{2}) + q_t(x,y) \delta w(x,y,-\frac{h}{2}) \right] \diff{x} \diff{y} \\
+    - \int_{\Gamma_{\sigma}} \int_{-\frac{h}{2}}^{\frac{h}{2}} \left[ 
+    \hat{\sigma}_{nn} \delta u_n +  \hat{\sigma}_{ns} \delta u_s +\hat{\sigma}_{nz} \delta w    
+    \right] \diff{z} \diff{s} 
+\end{multline}
+or,
+\begin{multline}\label{E:S1001:SS102:5}
+    \delta V  = -\int_{\Omega_0} \left[ q_b(x,y) \delta w(x,y,\frac{h}{2}) + q_t(x,y) \delta w(x,y,-\frac{h}{2}) \right] \diff{x} \diff{y} \\
+    - \int_{\Gamma_{\sigma}} \int_{-\frac{h}{2}}^{\frac{h}{2}} \left[ 
+       \hat{\sigma}_{nn} \left( \delta u_{0n} - z \PDer{\delta w_0}{n} \right) 
+     + \hat{\sigma}_{ns} \left(\delta u_{0s} - \PDer{\delta w_0}{s} \right) 
+     + \hat{\sigma}_{nz} \delta w_0 
+    \right] \diff{z} \diff{s}
+\end{multline}
+
+%======================================================================
+%======================================================================
+\begin{multline}\label{E:S1001:SS102:6}
+    \delta K=\int_{\Omega_0} \int_{-\frac{h}{2}}^{\frac{h}{2}} \rho_{0} \left[ \left( \dot{u_0} - z \PDer{\dot{w_0}}{x} \right) \left(\delta \dot{u_0} - z \PDer{\delta \dot{w_0}}{x} \right) \right.\\
+    + \left.\left( \dot{v_0} - z \PDer{\dot{w_0}}{y} \right) \left(\delta \dot{v_0} - z \PDer{\delta \dot{w_0}}{y} \right) + \dot{w_0}\delta \dot{w_0} \right]
+ \diff{z} \; \diff{x}\diff{y}
+\end{multline}
+%======================================================================
+%======================================================================
+We may now substitute Eq~\ref{E:S1001:SS102:2}---Eq~\ref{E:S1001:SS102:6} into Eq~\ref{E:S1001:SS102:1}
+and integrate through the thickness of the laminate to obtain:
+
+\begin{multline}\label{E:S1001:SS102:7}
+         \int_0^T\left\{\int_{\Omega_0} \left[ N_{xx} \delta \varepsilon_{xx}^{(0)} + M_{xx} \delta \varepsilon_{xx}^{(1)} + N_{yy} \delta \varepsilon_{yy}^{(0)} + M_{yy} \delta \varepsilon_{yy}^{(1)} \right.\right.\\
+                                               + N_{xy} \delta \gamma_{xy}^{(0)} + M_{xy} \delta \gamma_{xy}^{(1)} - q\delta w_0 - I_0\left(\dot{u_0}\delta\dot{u_0} + \dot{v_0}\delta{v_0} + \dot{w_0}\delta\dot{w_0}\right) \\
+                                               + I_1\left(\PDer{\delta \dot{w_0}}{x}\dot{u_0} + \PDer{\dot{w_0}}{x}\delta \dot{u_0} +   \PDer{\delta \dot{w_0}}{y}\dot{v_0} +  \PDer{\dot{w_0}}{y}\delta \dot{v_0} \right) \\
+                                               + I_2\left(\PDer{\dot{w_0}}{x} \PDer{\delta \dot{w_0}}{x} +\PDer{\dot{w_0}}{y} \PDer{\delta \dot{w_0}}{y} \right) \\
+             - \left. \int_{\Gamma_{\sigma}} \left( \hat{N}_{nn}\delta u_{0n} + \hat{N}_{ns}\delta u_{0s} - \hat{M}_{nn}\PDer{\delta w_0}{n} - \hat{M}_{ns}\PDer{\delta w_0}{s} + \hat{Q}_n \delta w_0 \right) ds \right\} dt
+\end{multline}
+
+\begin{equation}\label{E:S1001:SS102:8}
+\begin{Bmatrix}
+N_{xx}\\
+N_{yy}\\
+N_{xy}
+\end{Bmatrix}
+ = 
+\int_{-\frac{h}{2}}^{\frac{h}{2}}
+\begin{Bmatrix}
+\sigma_{xx}\\
+\sigma_{yy}\\
+\sigma_{xy}
+\end{Bmatrix}
+\; \diff{z}
+\end{equation}
+
+\begin{equation}\label{E:S1001:SS102:9}
+\begin{Bmatrix}
+M_{xx}\\
+M_{yy}\\
+M_{xy}
+\end{Bmatrix}
+ = 
+\int_{-\frac{h}{2}}^{\frac{h}{2}}
+\begin{Bmatrix}
+\sigma_{xx}\\
+\sigma_{yy}\\
+\sigma_{xy}
+\end{Bmatrix}
+\; z\;  \diff{z}
+\end{equation}
+
+\begin{equation}\label{E:S1001:SS102:10}
+\begin{Bmatrix}
+N_{nn}\\
+N_{ns}
+\end{Bmatrix}
+ = 
+\int_{-\frac{h}{2}}^{\frac{h}{2}}
+\begin{Bmatrix}
+\sigma_{nn}\\
+\sigma_{ns}
+\end{Bmatrix}
+\; \diff{z}
+\end{equation}
+
+\begin{equation}\label{E:S1001:SS102:11}
+\begin{Bmatrix}
+M_{nn}\\
+M_{ns}
+\end{Bmatrix}
+ = 
+\int_{-\frac{h}{2}}^{\frac{h}{2}}
+\begin{Bmatrix}
+\sigma_{nn}\\
+\sigma_{ns}
+\end{Bmatrix}
+\; z\; \diff{z}
+\end{equation}
+
+
+\begin{equation}\label{E:S1001:SS102:12}
+\begin{Bmatrix}
+I_0\\
+I_1\\
+I_2
+\end{Bmatrix}
+ = 
+\int_{-\frac{h}{2}}^{\frac{h}{2}}
+\begin{Bmatrix}
+1\\
+z\\
+z^2
+\end{Bmatrix}
+\rho_0\; \diff{z}
+\end{equation}
+
+\begin{equation}\label{E:S1001:SS102:13}
+\hat{Q}_n = \int_{-\frac{h}{2}}^{\frac{h}{2}} \hat{\sigma}_{nz}\; \diff{z}
+\end{equation}
+
+%======================================================================
+%======================================================================
+Now take the variation of the strain-displacement relations 
+Eq~\ref{E:S1001:SS101:4}
+\begin{gather}\label{E:S1001:SS102:14}
+\delta \varepsilon_{xx}^{0} = \PDer{\delta u_0}{x} + \PDer{w_0}{x}\PDer{\delta w_0}{x}
+\\
+\delta \varepsilon_{xx}^{1} = -\PPDer{\delta w_0}{x} 
+\\
+\delta \varepsilon_{yy}^{0} = \PDer{\delta v_0}{y} + \PDer{w_0}{y}\PDer{\delta w_0}{y}
+\\
+\delta \varepsilon_{xx}^{1} = -\PPDer{\delta w_0}{y} 
+\\
+\delta \gamma_{xy}^{0} = \PDer{\delta u_0}{y} +\PDer{\delta v_0}{x} +  \PDer{w_0}{x}\PDer{\delta w_0}{y} +  \PDer{w_0}{y}\PDer{\delta w_0}{x}
+\\
+\delta \gamma_{xy}^{1} = -2 \PPDerMix{\delta w_0}{x}{y} 
+\end{gather}
+
+%======================================================================
+%======================================================================
+The next step is to substitute Eq~\ref{E:S1001:SS102:14} into Eq~\ref{E:S1001:SS102:7} and perform
+differentiation by parts enought times on each term to remove derivatives from the virtual displacements.
+
+\begin{multline}\label{E:S1001:SS102:15}
+        0 =  \int_0^T\left\{\int_{\Omega_0} \left[ 
+                                               N_{xx} \left(\PDer{\Vartn{u_0}}{x} + \PDer{w_0}{x} \PDer{\Vartn{w_0}}{x} \right)
+                                             + M_{xx} \left( -\PPDer{\Vartn{w_0}}{x} \right) \right.\right.\\
+                                             + N_{yy} \left(\PDer{\Vartn{v_0}}{y} + \PDer{w_0}{y} \PDer{\Vartn{w_0}}{y} \right)
+                                             + M_{yy} \left( -\PPDer{\Vartn{w_0}}{x} \right)\\
+                                             + N_{xy} \left(\PDer{\Vartn{u_0}}{y} + \PDer{\Vartn{v_0}}{x} + \PDer{w_0}{x} \PDer{\Vartn{w_0}}{x} +  \PDer{w_0}{y} \PDer{\Vartn{w_0}}{y} +  \right)
+                                             + M_{xy} \left( -2\PPDerMix{\Vartn{w_0}}{x}{y} \right) \\
+                                             - q\Vartn{w_0} - I_0\left(\dot{u_0}\Vartn{\dot{u_0}} + \dot{v_0}\Vartn{v_0} + \dot{w_0}\Vartn{\dot{w_0}}\right) \\
+                                             + I_1\left(\PDer{\Vartn{\dot{w_0}}}{x}\dot{u_0} + \PDer{\dot{w_0}}{x}\Vartn{\dot{u_0}} +   \PDer{\Vartn{\dot{w_0}}}{y}\dot{v_0} +  \PDer{\dot{w_0}}{y}\Vartn{\dot{v_0}} \right) \\
+                                             + I_2\left(\PDer{\dot{w_0}}{x} \PDer{\Vartn{\dot{w_0}}}{x} +\PDer{\dot{w_0}}{y} \PDer{\Vartn{\dot{w_0}}}{y} \right) \\
+             - \left. \int_{\Gamma_{\sigma}} \left( \hat{N}_{nn}\Vartn{u_{0n}} + \hat{N}_{ns}\Vartn{u_{0s}} - \hat{M}_{nn}\PDer{\Vartn{w_0}}{n} - \hat{M}_{ns}\PDer{\Vartn{w_0}}{s} + \hat{Q}_n \Vartn{w_0} \right) ds \right\} dt
+\end{multline}
+
+%======================================================================
+%======================================================================
+Note that terms with time derivatives of virtual displacements must be integrated in both space and time:
+\begin{multline}\label{E:S1001:SS102:16}
+        0=\int_0^T\left\{\int_{\Omega_0} \left[ 
+                                               - N_{xx,x} \Vartn{u_0} 
+                                               - \left(N_{xx}\PDer{w_0}{x}\right)_{,x} \Vartn{w_0} 
+\right. \right.\\
+                                               - M_{xx,xx}\Vartn{w_0}
+                                               - N_{yy,y} \Vartn{v_0} 
+                                               - \left(N_{yy}\PDer{w_0}{y}\right)_{,y} \Vartn{w_0} 
+\\
+                                               - M_{yy,yy}\Vartn{w_0}
+                                               - N_{xy,y} \Vartn{u_0} 
+                                               - N_{xy,x} \Vartn{v_0} 
+                                               - \left(N_{xy}\PDer{w_0}{y}\right)_{,x} \Vartn{w_0} 
+\\
+                                               - \left(N_{xy}\PDer{w_0}{x}\right)_{,y} \Vartn{w_0} 
+                                               -2 M_{xy,xy}\Vartn{w_0} - q\Vartn{w_0}
+\\
+                                               +I_0\left(\ddot{u_0}\Vartn{u_0} + \ddot{v_0}\Vartn{v_0} + \ddot{w_0}\Vartn{w_0}\right)
+                                               -I_2\left(\PPDer{\ddot{w_0}}{x} + \PPDer{\ddot{w_0}}{x} \right) \Vartn{w_0} 
+\\
+                                               +I_1\left(\PDer{\ddot{u_0}}{x}\Vartn{w_0} - \PDer{\ddot{w_0}}{x}\Vartn{u_0} + \PDer{\ddot{v_0}}{y}\Vartn{w_0}  - \PDer{\ddot{w_0}}{y}\Vartn{v_0} \right)
+\left.\Biggr]\right.\diff{x} \diff{y}
+\\
+% Boundary Integral over s
++ \int_{\Gamma} \left[
+                                                 N_{xx}n_x\Vartn{u_0}
+                                               + \left( N_{xx} \PDer{w_0}{x} \right) n_x\Vartn{w_0}
+                                               - M_{xx}\PDer{\Vartn{w_0}}{x}n_x\Vartn{u_0}
+                                               + M_{xx,x}n_x\Vartn{w_0}
+\right.\\
+                                                 N_{yy}n_y\Vartn{v_0}
+                                               + \left( N_{yy} \PDer{w_0}{y} \right) n_y\Vartn{w_0}
+                                               - M_{yy}\PDer{\Vartn{w_0}}{y}n_y\Vartn{v_0}
+                                               + M_{yy,y}n_y\Vartn{w_0}
+\\
+                                               - M_{xy}n_x\PDer{\Vartn{w_0}}{y}
+                                               + M_{xy,x}n_y\Vartn{u_0}
+                                               - M_{xy}n_y\PDer{\Vartn{w_0}}{x}
+                                               + M_{xy,y}n_x\Vartn{u_0}
+\\
+                                               + N_{xy}n_y\Vartn{u_0}
+                                               + N_{xy}n_x\Vartn{v_0}
+                                               + N_{xy}\PDer{w_0}{y}n_x\Vartn{w_0}
+                                               + N_{xy}\PDer{w_0}{x}n_y\Vartn{w_0}
+\left.\Bigg]\right. \diff{s}
+\\
+% Integral over stress tractions 
+- \int_{\Gamma_{\sigma}} \left(\right.
+                                                 \hat{N}_{nn}\Vartn{u_{0n}}
+                                               + \hat{N}_{ns}\Vartn{u_{0s}}
+                                               - \hat{M}_{nn}\PDer{\Vartn{w_0}}{n}
+                                               - \hat{M}_{ns}\PDer{\Vartn{w_0}}{s}
+                                               + \hat{Q}_{n}\Vartn{w_0}
+\left.\Bigr)\right.
+\\
++ \int_{\Gamma} \Biggl[
+                                               -I_1\left(\ddot{u_0}n_x + \ddot{v_0}n_y\right)
+                                               +I_2\left( \PDer{\ddot{w_0}}{x} n_x + \PDer{\ddot{w_0}}{y}n_y\right)
+\Biggr]\Vartn{w_0} \; \diff{s} \; \Biggr\}\diff{t} 
+\end{multline}
+
+
+
+%======================================================================
+%======================================================================
+\begin{multline}\label{E:S1001:SS102:17}
+        0=\int_0^T\left\{\int_{\Omega_0} \Bigl[\right.
+                                        - \Bigl( N_{xx,x} + N_{xy,y} - I_0 \ddot{u_0} + I_1 \PDer{\ddot{w_0}}{x} \Bigr) \Vartn{u_0} 
+\\
+                                        - \Bigl( N_{yy,y} + N_{xy,x} - I_0 \ddot{v_0} + I_1 \PDer{\ddot{w_0}}{y} \Bigr) \Vartn{v_0} 
+\\
+                                        - \Bigl(\Bigr. M_{xx,xx} + 2M_{xy,xy} M_{yy,yy} + \mathcal{N}(w_0)  + q 
+\\
+\Bigl.                                  -I_0\ddot{w_0} - I_1\PDer{\ddot{u_0}}{x} + I_2\PPDer{\ddot{w_0}}{x} + I_2\PPDer{\ddot{w_0}}{y} \Bigr)
+\Bigl. \Bigr]\; \diff{x}\diff{y}
+\\
++ \int_{\Gamma_{\sigma}} \Bigl[
+                                       \left( N_{xx} n_x + N_{xy} n_y \right) \Vartn{u_0}
+                                       + \left( N_{xy} n_x + N_{yy} n_y \right) \Vartn{v_0}
+\\
+                                       + \Bigl( \Bigr. M_{xx,x} n_x + M_{xy,y} n_y + M_{yy,y} n_y + \mathcal{P}(w_0)
+\\
+                                       - I_1\ddot{u_0}n_x  - I_1\ddot{v_0} n_y + I_2 \PDer{\ddot{w_0}}{x} n_x + I_2 \PDer{\ddot{w_0}}{y} n_y \Bigl. \Bigr) \Vartn{w_0}
+\\
+                                      -\Bigl( M_{xx} n_x + M_{xy} n_y \Bigr)\PDer{\Vartn{w_0}}{x} - \Bigl( M_{xy} n_x + M_{yy} n_y \Bigr)\PDer{\Vartn{w_0}}{y}
+\Bigr] \; \diff{s}
+\\
+%
++ \int_{\Gamma_{\sigma}} \Bigl[
+                                      \Bigl( \hat{N}_{nn} \Vartn{u_{0n}} + \hat{N}_{ns} \Vartn{u_{0s}} 
+                                      - \hat{M}_{nn} \PDer{\Vartn{w_0}}{n} - \hat{M}_{ns} \PDer{\Vartn{w_0}}{s} + \hat{Q}_{n} \Vartn{w_0} \Bigr)\; \diff{s}
+\Bigl.\Bigr\}
+\end{multline}
+
+
+%======================================================================
+%======================================================================
+
+The boundary conditions require the coordinates be expressed in terms of normal and transverse components.\par
+$(u_{0n}, u_{0s})$ are expressed in terms of $(u_0, v_0)$ by \\
+$$u_0 = n_x u_{0n} - n_y u_{0s}\text{, and } v_0 = n_x u_{0n} + n_y u_{0s}$$
+$$\PDer{w_0}{x} = n_x\PDer{w_0}{n} - n_y\PDer{w_0}{s}\text{, and }\PDer{w_0}{y} = n_y\PDer{w_0}{n} + n_x\PDer{w_0}{s}$$
+taking the variation of each:
+$$\Vartn{u_0} = n_x \Vartn{u_{0n}} - n_y \Vartn{u_{0s}}$$
+$$\Vartn{v_0} = n_y \Vartn{u_{0n}} + n_x \Vartn{u_{0s}}$$
+$$\PDer{\Vartn{w_0}}{x} = n_x \PDer{\Vartn{w_0}}{n} - n_y \PDer{\Vartn{w_0}}{s}$$
+$$\PDer{\Vartn{w_0}}{y} = n_y \PDer{\Vartn{w_0}}{n} + n_x \PDer{\Vartn{w_0}}{s}$$
+%======================================================================
+%======================================================================
+Now the first two terms of the first surface traction integral may be rewritten,
+\begin{multline}\label{E:S1001:SS102:18}
+\int_{\Gamma_s} \Bigl\{ \Bigr.
+  \left[N_{xx} n_x + N_{xy} n_y\right]  \left[ n_x \Vartn{u_{0n}} - n_y \Vartn{u_{0s}} \right]
+  \\ 
+  +
+  \left[N_{xy} n_x + N_{yy} n_y\right]  \left[ n_x \Vartn{v_{0n}} + n_y \Vartn{u_{0s}} \right]
+  \Bigl.\Bigr\} \diff{s}
+\end{multline}
+%======================================================================
+%======================================================================
+or
+\begin{multline}\label{E:S1001:SS102:19}
+\int_{\Gamma_s} \Bigl\{ \Bigr.
+  \Bigl(N_{xx} n_x^2 + 2 N_{xy} n_x n_y + N_{yy} n_y^2\Bigr) \Vartn{u_{0n}} 
+  \\
+  + \Bigl( \bigl( N_{yy} - N_{xx}\bigr) n_x n_y + N_{xy} \bigl(n_x^2 - n_y^2 \bigr) \Bigr) \Vartn{u_{0s}} 
+  \Bigl.\Bigr\} \diff{s}
+\end{multline}
+%======================================================================
+%======================================================================
+which can be written as
+\begin{equation}\label{E:S1001:SS102:20}
+\int_{\Gamma_s} \Bigl\{ \Bigr.
+  N_n \Vartn{u_{0n}} + N_s \Vartn{u_{0s}} 
+  \Bigl.\Bigr\} \diff{s}
+\end{equation}
+%======================================================================
+%======================================================================
+Similarly, the moment terms may be expressed as:
+\begin{multline}\label{E:S1001:SS102:21}
+\int_{\Gamma_s} \Bigl\{ \Bigr.
+  -\left[M_{xx} n_x + M_{xy} n_y\right]  \left[ n_x \PDer{\Vartn{w_0}}{n} - n_y \PDer{\Vartn{w_0}}{s} \right]
+  \\ 
+  -
+  \left[M_{xy} n_x + M_{yy} n_y\right]  \left[ n_x \PDer{\Vartn{w_0}}{n} + n_y \PDer{\Vartn{w_0}}{s} \right]
+  \Bigl.\Bigr\} \diff{s}
+\end{multline}
+%======================================================================
+%======================================================================
+collecting on the variational terms,
+\begin{multline}\label{E:S1001:SS102:22}
+\int_{\Gamma_s} \Bigl\{ \Bigr.
+  -\Bigl(M_{xx} n_x^2 + 2 M_{xy} n_x n_y + M_{yy} n_y^2 \Bigr) \PDer{\Vartn{w_0}}{n} 
+  \\ 
+  -\Bigl( \bigl(M_{yy} - M_{xx}\bigr) n_x n_y + M_{xy} \bigl( n_x^2 -  n_y^2 \bigr) \Bigr) \PDer{\Vartn{w_0}}{s} 
+  \Bigl.\Bigr\} \diff{s}
+\end{multline}
+%======================================================================
+%======================================================================
+which can be written as
+\begin{equation}\label{E:S1001:SS102:23}
+\int_{\Gamma_s} \Bigl\{ \Bigr.
+  -M_n \PDer{\Vartn{w_0}}{n} - M_s \PDer{\Vartn{w_0}}{s}
+  \Bigl.\Bigr\} \diff{s}
+\end{equation}
+%======================================================================
+%======================================================================
+The boundary integral expressions in \ref{E:S1001:SS102:17} may be combined to:
+\begin{multline}\label{E:S1001:SS102:24}
+        0=\int_0^T\Bigl\{\Bigr.\int_{\Omega_0} \Bigl[\Bigr.
+        \Bigl(N_{nn} - \hat{N}_{nn} \Bigr) \Vartn{u_{0n}} + \Bigl( N_{ns} - \hat{N}_{ns} \Bigr) \Vartn{u_{0s}}
+\\
+        + \Bigl(\Bigr.M_{xx,x} n_x + M_{xy,y} n_x + M_{yy,y} n_y + M_{xy,x} n_y  + \mathcal{P}(w_0) 
+\\
+      - I_1 \ddot{u_0} n_x - I_1 \ddot{v_0} n_y + I_2 \PDer{\ddot{w_0}}{x} n_x + I_2 \PDer{\ddot{w_0}}{y} n_y - \hat{\mathcal{Q}}_n \Bigl.\Bigr) \Vartn{w_0}
+\\
+      - \Bigl( M_{nn} - \hat{M}_{nn} \Bigr) \PDer{\Vartn{w_0}}{n} - \Bigl(M_{ns} - \hat{M}_{ns} \Bigr) \PDer{\Vartn{w_0}}{s} \Bigl.\Bigr]\diff{s} \Bigl.\Bigr\} \diff{t}
+\end{multline}
+
+%======================================================================
+%======================================================================
+
+We can take 
+\begin{multline}\label{E:S1001:SS102:25}
+     Q_n = \Bigl( M_{xx,x} + M_{xy,y} - I_1 \ddot{u_0} + I_2 \PDer{\ddot{w_0}}{x} \Bigr) n_x
+\\
+      + \Bigl( M_{yy,y} + M_{xy,x} - I_1 \ddot{v_0} + I_2 \PDer{\ddot{w_0}}{y} \Bigr) n_y
+      + \mathcal{P}(w_0) 
+\end{multline}
+
+%======================================================================
+%======================================================================
+
+and arrive at the natural boundary conditions:
+\begin{multline}\label{E:S1001:SS102:26}
+N_{nn} - \hat{N}_{nn} = 0\text{, }N_{ns} - \hat{N}_{ns} = 0\text{, }Q_n - \hat{Q}_n = 0
+\\
+M_{nn} - \hat{M}_{nn} = 0\text{, }M_{ns} - \hat{M}_{ns} = 0
+\end{multline}
+Hamilton's principle has provided us with the following primary variables:
+$$\text{  primary variables:  }u_n\text{, }u_s\text{, }w_0\text{, }\PDer{w_0}{n}\text{, }\PDer{w_0}{s}$$
+$$\text{secondary variables:  }N_{nn}\text{, }N_{ns}\text{, }Q_n\text{, }M_{nn}\text{, }M_{ns}$$
+
+%======================================================================
+%======================================================================
+However, this is not the end of the story.  The differential equations are of fourth order in $w_0$ 
+and second order in both $u_0$ and $v_0$, resulting in an eighth order theory.
+Therefore, there should be eight boundary conditions, not ten as we have found.
+The solution to this limitation of the theory is the \emph{Kirchoff free-edge} condition, which 
+eliminates $M_{ns}$ by integrating tangential derivative term by parts:
+
+\begin{equation}\label{E:S1001:SS102:27}
+-\int_{\Gamma} M_{ns} \PDer{\Vartn{w_0}}{s}\; \diff{s} = \int_{\Gamma} \PDer{M_{ns}}{s}\Vartn{w_0}\; \diff{s} - [M_{ns}\Vartn{w_0}]_{\Gamma}
+\end{equation}
+
+%======================================================================
+%======================================================================
+\newpage
+\section{Analysis of Laminated Beams Using FSDT}
+\subsection{Governing Equations}
+Symmetric laminates without presence of in-plane forces are governed by
+%======================================================================
+%======================================================================
+\begin{equation}\label{sym_lam_moment_angle}
+    \begin{Bmatrix}
+    M_{xx} \\
+    M_{yy} \\
+    M_{xy}
+    \end{Bmatrix}
+     = 
+    \begin{bmatrix}
+    D_{11} & D_{12} & D_{16} \\[3pt]
+    D_{12} & D_{22} & D_{26} \\[3pt]
+    D_{16} & D_{26} & D_{66}
+    \end{bmatrix}
+    \quad
+    \begin{Bmatrix}
+    \PDer{\phi_x}{x} \\[3pt]
+    \PDer{\phi_y}{y} \\[3pt]
+    \PDer{\phi x}{y} + \PDer{\phi y}{x}
+    \end{Bmatrix}
+\end{equation}
+
+%======================================================================
+%======================================================================
+\begin{equation}\label{sym_lam_shear_angle}
+    \begin{Bmatrix}
+    Q_y \\[3pt]
+    Q_x \\[3pt]
+    \end{Bmatrix}
+    =
+    K \; 
+    \begin{bmatrix}
+        A_{44} & A_{45} \\[3pt]
+        A_{45} & A_{55} \\[3pt]
+    \end{bmatrix}
+    \quad
+    \begin{Bmatrix}
+        \PDer{w_0}{y} + \phi_y \\[3pt]
+        \PDer{w_0}{x} + \phi_x \\[3pt]
+    \end{Bmatrix}
+\end{equation}
+%======================================================================
+%======================================================================
+To be more useful, these relations are inverted:
+\begin{equation}
+    \begin{Bmatrix}
+    \PDer{\phi_x}{x} \\[3pt]
+    \PDer{\phi_y}{y} \\[3pt]
+    \PDer{\phi x}{y} + \PDer{\phi y}{x}
+    \end{Bmatrix}
+    = 
+    \begin{bmatrix}
+    D_{11}^* & D_{12}^*  & D_{16}^*  \\[3pt]
+    D_{12}^*  & D_{22}^*  & D_{26}^*  \\[3pt]
+    D_{16}^*  & D_{26}^*  & D_{66}^* 
+    \end{bmatrix}
+    \begin{Bmatrix}
+    M_{xx} \\
+    M_{yy} \\
+    M_{xy}
+    \end{Bmatrix}
+\end{equation}
+
+\begin{equation}
+    \begin{Bmatrix}
+        \PDer{w_0}{y} + \phi_y \\[3pt]
+        \PDer{w_0}{x} + \phi_x \\[3pt]
+    \end{Bmatrix}
+     = \frac{1}{K} \; 
+    \begin{bmatrix}
+        A_{44}^* & A_{45}^*  \\[3pt]
+        A_{45}^*  & A_{55}^*  \\[3pt]
+    \end{bmatrix}
+    \begin{Bmatrix}
+    Q_y \\[3pt]
+    Q_x \\[3pt]
+    \end{Bmatrix}
+\end{equation}
+%======================================================================
+%======================================================================
+If we assume $M_{yy} = M_{xy} = Q_y = \phi_y = 0$ and both $w_0$ and $\phi_x$ are functions 
+of only $x$ and $t$:
+\begin{equation}
+  w_0 = w_0\left(x,t\right), \qquad \phi_x = \phi_x\left(x,t\right)
+\end{equation}
+The displacement field in this case takes the form
+\begin{equation}
+    u(x,z) = z \phi_x(x), \qquad w(x,z) = w_0(x), \qquad u_0 = v_0 = 0
+\end{equation}
+The linear strain-displacement relations are:
+\begin{equation}
+    \epsilon_{xx} = z \PDer{\phi_x}{x}, \qquad 2\epsilon_{xz} = \PDer{w_0}{x} + \phi_x
+\end{equation}
+Since $M_yy = M_xy = 0$, 
+\begin{equation}
+    \PDer{\phi_x}{x} = D_{11}^* M_{xx}, \qquad \PDer{w_0}{x} + \phi_x = \frac{A_{55}^*}{K} Q_x
+\end{equation}
+\begin{equation}
+    E_{xx}^b I_{xx} \PDer{\phi_x}{x} = M(x) = b M_{xx}, \qquad E_{xx}^b = \frac{12}{D_{11}^* h^3}
+\end{equation}
+where $b$ is the width of the beam.\\
+We can likewise express the shear as:
+\begin{equation}
+    K G_{xx}^b b h \left(\PDer{w_0}{x} + \phi_x \right) = Q(x) = b Q_{xx} \qquad G_{xx}^b = \frac{1}{A_{55}^* h }
+\end{equation}
+
+%======================================================================
+%======================================================================
+These relations will be substituted into the equations of motion, which are (from earlier):
+
+
+
+%======================================================================
+%======================================================================
+\newpage
+\section{Extensions of the Principle of Virtual Work and Related Variational Principles}
+\subsection{Initial Stress Problems}
+The Lagrangian approach is used in this chapter.
+$ (x^1, x^2,x^3) $ is used to locate an arbitrary point in a body in the reference state.
+The initial state has an initial stress $\mathbf{\sigma^{(0)\lambda}} = \sigma^{(0)\lambda \mu}\mathbf{i_{\mu}}$
+and there are body forces $\mathbf{\overline{P}^{(0)}}$ and surface traction forces $\mathbf{\overline{F}^{(0)}}$.
+
+These stresses and body forces are self-equilibrating:
+$$
+ \sigma^{(0)\lambda_{\mu}}\:_{,\,\mu} + \overline{P}^{(0)\lambda} = 0
+$$
+
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{bibfile}
+
+\addcontentsline{toc}{chapter}{\indexname}
+\printindex
+
+
+\end{document}

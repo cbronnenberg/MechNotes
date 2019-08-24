@@ -1,0 +1,178 @@
+%==============================================================================
+%                                *************                                 
+%                                *  PREAMBLE *                                 
+%                                *************                                 
+%==============================================================================
+
+
+\documentclass[11pt,letterpaper,titlepage]{article}
+%
+% Activate the next two lines to run syntax-only checks (no dvi)
+%
+%...\usepackage{syntonly}
+%...\syntaxonly
+\usepackage{euler}
+\usepackage[utf8]{inputenc}
+%\usepackage{ieeetr}
+%\usepackage[round]{natbib}
+
+%...\usepackage{textcomp}
+\usepackage{bbding}
+% AMS packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%
+%   Title page info
+%
+\author{Chris Bronnenberg}
+\title{Thermodynamics Summary}
+%
+%  Index
+%
+\usepackage{makeidx}
+%...\usepackage{hyperref}
+\makeindex
+
+%
+% Table of Contents
+%
+\setcounter{tocdepth}{4}
+
+%==============================================================================
+%                            *********************
+%                            *  CUSTOM EQUATIONS *                                    
+%                            *********************
+%    * nenewcommand's go here
+%
+%==============================================================================
+
+\newcommand{\nvector}[2]{#1_1, #1_2,\ldots #1_#2}
+
+%
+% Solid Mechanics - Strain & Compatability Eq
+%
+\newcommand{\MilesEq}{3\times\sqrt{\frac{\pi}{2}\frac{G_{in} W_{in} Q}{f_n^2}}}
+\newcommand{\StrainX}{\frac{\partial u}{\partial x}}
+\newcommand{\StrainY}{\frac{\partial v}{\partial y}}
+\newcommand{\StrainZ}{\frac{\partial w}{\partial z}}
+\newcommand{\ShearXY}{
+	\frac{1}{2}\left(\frac{\partial u}{\partial y} +  
+	\frac{\partial v}
+	{\partial x} \right) 
+}
+
+%
+% Solid Mechanics - Strain Energy
+%
+\newcommand{\StrainEnergyBending}{
+U_M (L)= \int_0^L \frac{M(x)^2}{2 E I(x)} dx
+}
+%
+
+%
+% Electricity
+%
+\newcommand{\KirchoffCurrentLaw}{
+		\sum_{k=1}^{n} I_k = 0 \;
+}
+%==============================================================================
+%                              ****************** 
+%                              * BEGIN DOCUMENT *                              
+%                              ******************
+%==============================================================================
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+%\fussy
+
+% The following line allows Latex to hyphenate words with slashes (/) and
+% avoid overfull box errors.
+read\slash write
+
+Density\index{density}, $\rho$ is a function of temperature.
+$$
+Q1 = U-T dS \qquad P v = n R T
+$$
+$$
+\frac{P_2}{P_1} = \left( \frac{T_2}{T_1}\right)^{\frac{\gamma}{\gamma - 1}}
+$$
+Here is a sequence $\left(\nvector{a}{4}\right)$ from \cite{b_murri_payload_1987}.
+
+
+Miles equation:
+$$
+\MilesEq
+$$
+
+Normal Strains:
+
+\begin{align}\label{strain}
+e_x  & = \StrainX \notag \\[6pt]
+e_y  & = \StrainY \\[6pt]
+e_z  & = \StrainZ \notag
+\end{align}
+
+It's $-30\,^{\circ}\mathrm{C}$. I will soon start to super-conduct.
+The basic small strain formulation is given in \ref{strain}.
+
+Shear Strains:
+$$
+\gamma_{xy} = \ShearXY
+$$
+
+
+Bending strain energy:
+$$
+\StrainEnergyBending
+$$
+
+
+Shock Response Spectrum \cite{LaLanne_Shock}
+$$
+z(t)=- \int_0^t    e^{-\xi \omega_n \tau}    \sin{ \frac{\omega_d \tau}{\omega_d} }  u''(t - \tau)    \mathrm{d} \tau
+$$
+What we need to know about zero shift in pyroshock testing.
+\\
+Zero drift can occur when high accelerations force the accelerometer's crystal to operate in the nonlinear region.
+Kirchoff's current law:
+$$
+\KirchoffCurrentLaw
+$$
+
+$$
+x \overrightarrow{e_1} + a \cos{\theta}  \overrightarrow{e_2} + a \sin{\theta}  \overrightarrow{e_3} 
+$$
+%
+$$
+\frac{\partial \psi }{\partial t}
+$$
+
+$\underset{0}{\overset{t}{\int }}f\left(t\right)dt$
+Green's Functions \\
+Adjoint Operators \\
+$$
+u L v = vL^{\star} u
+$$
+
+\begin{tabular}{cc}
+	\hline 
+	a & b \\ 
+
+	c & d \\ 
+	\hline 
+\end{tabular} 
+
+
+\[ y=x^2 \]
+\bibliographystyle{plain}
+\bibliography{bibfile}
+
+\addcontentsline{toc}{chapter}{\indexname}
+\printindex
+
+
+\end{document}
